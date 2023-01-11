@@ -1,7 +1,7 @@
 ---
 data_dir: ./tmp/vector
 
-# Indicate the file, starting from the current working directory for the log store
+# Indicate the directory and file, starting from the current working directory for the vector data log store and creates a `checkpoint.json` file
 
 api:
   enabled: false
