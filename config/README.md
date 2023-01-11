@@ -29,7 +29,7 @@ The resulting configuration from [`nginx-to-json.yml`](https://github.com/GangGr
 
 * Here, `<dstip>` is redacting the server IPv4 address (running NGINX) and `<clientip>` is redacting the source IPv4 address of the incoming client
 * `<Local-Hostname>` is also redacting the local hostname of the machine you are running Vector on
-* 
+
 ```
 {
   "file": "data/<dstip>.log", <---- AKA NGINX server IP address
