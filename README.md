@@ -1,6 +1,6 @@
 # **[Vector, by DataDog](https://vector.dev)**
 
-# Useful resources:
+## Useful resources:
 * [Rustexp - A Rust regular expression editor & tester](https://rustexp.lpil.uk/)
 * [`parse_regex VRL Function`](https://vector.dev/docs/reference/vrl/functions/#parse_regex)
 * [VRL Interpretation of `regular expression` and literals](https://vector.dev/docs/reference/vrl/expressions/#regular-expression)
