@@ -1,0 +1,94 @@
+---
+data_dir: ./tmp/vector
+
+# Indicate the file, starting from the current working directory for the log store
+
+api:
+  enabled: false
+  playground: true
+  address: 0.0.0.0:8686
+
+sources:
+  vector-metrics:
+    type: internal_metrics
+    scrape_interval_secs: 5
+  vector-logs:
+    type: internal_logs
+   
+  nginx-per-host:
+    type: file
+    include:
+      - ./data/*.log
+    read_from: beginning
+
+# In this case, my test logs are placed in /etc/vector/data/*.log
+
+transforms:
+  parse-nginx:
+    inputs:
+      - nginx-per-host
+    type: remap
+    source: |
+      .nginx = parse_nginx_log!(.message,"combined")
+      .nginx.server = parse_regex!(.file, r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
+      .nginx.path = parse_regex!(.file, r'^.*/')
+      to_int!(.status)
+      to_int!(.size)
+    timezone: America/Vancouver
+
+# 1) Parse the entire raw message using the native VRL `parse_nginx_log` function which parses into fields, including additional `file`, `host` and `message` key-value pairs as well as present nested JSON for the `nginx` attributes from the log message
+# 2) Then use the native VRL `parse_regex` function to nest both the `server` (srcip) and `path` fields within the nested `nginx` key/value pairs
+# 3) Convert the parsed fields `status` and `size` to integers from strings
+# 4) Finally, set the timezone to local Vancouver, Canada (PST)
+
+# To test this config, execute the following from the correct directory:
+# $ vector --config-yaml /path/file.yml
+# Invoke the following shell script to cleanup the log files and before re-omiting/testing an alternative configuration file
+# $ ./run-vector.sh clean
+
+# Notes for testing the `transforms`:
+
+# To use the `parse_regex` function with a capture group for server IP:
+#      .nginx.server = parse_regex!(.file, r'^(?P<dstip>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})')
+# To use the `parse_regex` function without a capture group for server IP:
+#       .nginx.server = parse_regex!(.file, r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
+
+# To use the `parse_regex` function with a capture group for file/path:
+#      .nginx.path = parse_regex!(.file, r'^(?P<path>.*/)')
+# To use the `parse_regex` function without a capture group for file/path:
+#      .nginx.path = parse_regex!(.file, r'^.*/') 
+
+# Test no regex capture groups
+#      .nginx.server = parse_regex!(.file, r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
+#      .nginx.path = parse_regex!(.file, r'^.*/')
+
+# Test regex capture groups
+#      .nginx.server = parse_regex!(.file, r'^(?P<dstip>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})')
+#      .nginx.path = parse_regex!(.file, r'^(?P<path>.*/)')
+
+sinks:
+  events_file:
+    type: file
+    inputs:
+      - parse-nginx
+    encoding:
+      codec: json
+
+    path: ./out/vector-nginx.json
+
+  logs:
+    type: file
+    inputs:
+      - vector-logs
+    encoding:
+      codec: json
+    path: ./out/vector-logs.json
+
+# Test the configuration by changing to the resulting directory and pipe the NDJSON with JQ for easier interpretation of the log output
+# $ tail vector-nginx.json | jq
+
+  prometheus:
+    type: prometheus_exporter
+    inputs:
+      - vector-metrics
+    address: 127.0.0.1:9090
