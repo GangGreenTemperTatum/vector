@@ -22,5 +22,5 @@ $ ./run-vector.sh clean
 Test the configuration by changing to the resulting directory and pipe the NDJSON with JQ for easier interpretation of the log output
 
 ```
-$ tail vector-nginx.json | jq
+$ tail /etc/vector/out/vector-nginx.json | jq
 ```
