@@ -1,4 +1,4 @@
-[Vector, by DataDog](https://vector.dev)
+# **[Vector, by DataDog](https://vector.dev)**
 
 # Useful resources:
 * [Rustexp - A Rust regular expression editor & tester](https://rustexp.lpil.uk/)
