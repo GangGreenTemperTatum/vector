@@ -18,9 +18,3 @@ Invoke the following shell script to cleanup the log files and before re-omiting
 $ chmod +x ./run-vector.sh
 $ ./run-vector.sh clean
 ```
-
-Test the configuration by changing to the resulting directory and pipe the NDJSON with JQ to STDOUT for easier interpretation of the log output
-
-```
-$ tail /etc/vector/out/vector-nginx.json | jq
-```
