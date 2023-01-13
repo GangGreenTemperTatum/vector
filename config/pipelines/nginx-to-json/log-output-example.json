@@ -29,6 +29,12 @@
 
 # To: (Post formatting and translation)
 
+```
+sh-3.2# pwd
+/etc/vector/out
+sh-3.2# tail vector-nginx.json | jq
+```
+
 {
   "file": "data/XXX.XXX.52.242.log",
   "nginx": {
