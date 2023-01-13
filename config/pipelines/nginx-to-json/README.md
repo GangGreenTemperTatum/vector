@@ -1,4 +1,4 @@
-Test the configuration by changing to the resulting directory and pipe the `NDJSON` with `JQ` to `STDOUT` for easier interpretation of the log output
+Test the configuration by changing to the resulting directory and pipe the `NDJSON` with `JQ` to `STDOUT` for easier "pretty" interpretation of the log output
 
 ```
 $ tail /etc/vector/out/vector-nginx.json | jq
