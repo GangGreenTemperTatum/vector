@@ -1,4 +1,5 @@
 A [Vector](https://vector.dev) pipeline configuration to publish local sample NGINX access logs to [AWS Cloudwatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
+
 Ensure to run the [`/etc/vector/./run-vector.sh clean`](https://github.com/GangGreenTemperTatum/vector/blob/main/scripts/run-vector.sh) after any prior Vector runs or attempts to flush configuration, ingestigion and logs
 
 ## Resources:
