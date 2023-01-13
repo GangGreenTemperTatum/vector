@@ -34,7 +34,7 @@ Ensure to run the [`/etc/vector/./run-vector.sh clean`](https://github.com/GangG
 
 * Navigate to your [AWS Console:](https://portal.aws.amazon.com)
 
-1) Search for `cloudwatch` under services search
+1) Ensure you are in the correct region & search for `cloudwatch` under services search
 2) Click `Logs` >
 3) Click `Log Groups` > 
 4) Click on your `<log-group-name>` .. [Example](https://us-east-2.console.aws.amazon.com/cloudwatch/home?region=us-east-2#logsV2:log-groups/log-group/vector-nginx$)
