@@ -37,5 +37,5 @@ The resulting configuration from [`nginx-to-json.yml`](https://github.com/GangGr
 ### [VRL REMAP](https://vector.dev/docs/reference/configuration/transforms/remap/) Functions to include ##
 * Enrich data with `.find_enrichment_table_records`
 * Remove DUP and redundant data fields with `del`
-* Coalesce `parse_regex` statements for cleaner VRL remapy syntax
+* Coalesce `parse_regex` statements for cleaner VRL remap syntax
 * Coalesce `del()` and `to_int()` statements for cleaner `VRL REMAP` syntax
