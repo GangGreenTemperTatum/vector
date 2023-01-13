@@ -21,5 +21,5 @@ A [Vector](https://vector.dev) pipeline configuration to publish local sample NG
 ```
 
 ## TDL Enhancements
-* Scale Vector using [`AWS Kinesis Firehose`](https://aws.amazon.com/kinesis/data-firehose/) to host multiple Vector instances over HTTPS for redundancy, scalability and portability
+* Scale Vector [pipeline](https://vector.dev/guides/advanced/cloudwatch-logs-firehose/) using [`AWS Kinesis Firehose`](https://aws.amazon.com/kinesis/data-firehose/) to host multiple Vector instances over HTTPS for redundancy, scalability and portability
 * Deploy as IaC with [Terraform](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group)
