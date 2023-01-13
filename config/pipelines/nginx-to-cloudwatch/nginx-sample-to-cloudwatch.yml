@@ -7,12 +7,6 @@ api:
   address: 0.0.0.0:8686
 
 sources:
-  vector-metrics:
-    type: internal_metrics
-    scrape_interval_secs: 5
-  vector-logs:
-    type: internal_logs
-   
   nginx-per-host:
     type: file
     include:
@@ -54,7 +48,7 @@ transforms:
     ################################
     timezone: America/Vancouver
 
-## VRL Functions to include ####
+## TDL Enhancements ####
 # Scale Vector using `AWS Kinesis Firehose` to host multiple Vector instances over HTTPS
 # Deploy as IaC with Terraform
 ################################  
@@ -97,25 +91,3 @@ sinks:
 
 #https://docs.aws.amazon.com/general/latest/gr/rande.html
 #https://issuehint.com/issue/vectordotdev/vector/12270
-
-  prometheus:
-    type: prometheus_exporter
-    inputs:
-      - vector-metrics
-    address: 127.0.0.1:9090
-
-  events_file:
-    type: file
-    inputs:
-      - parse-nginx
-    encoding:
-      codec: json
-    path: ./out/vector-nginx.json
-
-  logs:
-    type: file
-    inputs:
-      - vector-logs
-    encoding:
-      codec: json
-    path: ./out/vector-logs.json
