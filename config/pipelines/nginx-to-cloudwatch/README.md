@@ -1,4 +1,5 @@
 A [Vector](https://vector.dev) pipeline configuration to publish local sample NGINX access logs to [AWS Cloudwatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)
+Ensure to run the [`/etc/vector/./run-vector.sh clean`](https://github.com/GangGreenTemperTatum/vector/blob/main/scripts/run-vector.sh) after any prior Vector runs or attempts to flush configuration, ingestigion and logs
 
 ## Resources:
 
@@ -24,7 +25,7 @@ A [Vector](https://vector.dev) pipeline configuration to publish local sample NG
 * Scale Vector [pipeline](https://vector.dev/guides/advanced/cloudwatch-logs-firehose/) using [`AWS Kinesis Firehose`](https://aws.amazon.com/kinesis/data-firehose/) to host multiple Vector instances over HTTPS for redundancy, scalability and portability
 * Deploy as IaC with [Terraform](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group)
 
-## Log Output 
+## Test your results / Log Output 
 
 * [This configuration pipeline](https://github.com/GangGreenTemperTatum/vector/blob/main/config/pipelines/nginx-to-cloudwatch/nginx-sample-to-cloudwatch.yml) creates individual log stream per-NGINX server IP address which is configured under the sink's key/value `stream_name: "{{ .nginx.server }}"`. Each unique Event (AKA log) is visible in "pretty" JSON format (non-NDJSON) in the AWS CloudWatch console.
 
