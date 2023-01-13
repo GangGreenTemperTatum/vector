@@ -35,11 +35,6 @@ transforms:
       del(.message)
     timezone: America/Vancouver
 
-## TDL Enhancements ####
-# Scale Vector using `AWS Kinesis Firehose` to host multiple Vector instances over HTTPS
-# Deploy as IaC with Terraform
-################################  
-
 # config_variables_file_path: etc/vector.toml
 
 sinks:
