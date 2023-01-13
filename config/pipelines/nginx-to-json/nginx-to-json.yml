@@ -39,19 +39,6 @@ transforms:
       del(.file_parsed_b.logdir)
       del(.host)
       del(.message)
-    ## VRL Functions to include ##
-    # Enrich data with `.find_enrichment_table_records`
-    # Remove DUP and redundant data fields with `del`
-    # Coalesce `parse_regex` statements for cleaner VRL remapy syntax
-    # Coalesce `del()` and to_int() statements for cleaner VRL remapy syntax
-    ################################  
-    ## Retired parsing techniques ##
-    # .file_parsed_c = parse_regex!(.file,r'/(?P<ip6>^(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}$)\.log')
-    # .nginx.server6 = .file_parsed_c.ipc
-    # .file_parsed = parse_regex!(.file,r'data/(?P<ip>\d+\.\d+\.\d+\.\d+)\.log')
-    # .nginx.server = parse_regex!(.file,r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
-    # .nginx.path = parse_regex!(.file,r'^.*/')
-    ################################
     timezone: America/Vancouver
 
 # 1) Parse the entire raw message using the native VRL `parse_nginx_log` function which parses into fields, including additional `file`, `host` and `message` key-value pairs as well as present nested JSON for the `nginx` attributes from the log message
@@ -63,26 +50,6 @@ transforms:
 # $ vector --config-yaml /path/file.yml
 # Invoke the following shell script to cleanup the log files and before re-omiting/testing an alternative configuration file
 # $ ./run-vector.sh clean
-
-# Notes for testing the `transforms`:
-
-# To use the `parse_regex` function with a capture group for server IP:
-#      .nginx.server = parse_regex!(.file, r'^(?P<dstip>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})')
-# To use the `parse_regex` function without a capture group for server IP:
-#       .nginx.server = parse_regex!(.file, r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
-
-# To use the `parse_regex` function with a capture group for file/path:
-#      .nginx.path = parse_regex!(.file, r'^(?P<path>.*/)')
-# To use the `parse_regex` function without a capture group for file/path:
-#      .nginx.path = parse_regex!(.file, r'^.*/') 
-
-# Test no regex capture groups
-#      .nginx.server = parse_regex!(.file, r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
-#      .nginx.path = parse_regex!(.file, r'^.*/')
-
-# Test regex capture groups
-#      .nginx.server = parse_regex!(.file, r'^(?P<dstip>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})')
-#      .nginx.path = parse_regex!(.file, r'^(?P<path>.*/)')
 
 sinks:
   events_file:
