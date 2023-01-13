@@ -1,3 +1,7 @@
+Ensure to run the [`/etc/vector/./run-vector.sh clean`](https://github.com/GangGreenTemperTatum/vector/blob/main/scripts/run-vector.sh) after any prior Vector runs or attempts to flush configuration, ingestigion and logs
+
+## Test your results
+
 Test the configuration by changing to the resulting directory and pipe the `NDJSON` with `JQ` to `STDOUT` for easier `"pretty"` interpretation of the log output
 
 ```
