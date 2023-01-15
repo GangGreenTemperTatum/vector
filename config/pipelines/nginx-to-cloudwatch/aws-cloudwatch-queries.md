@@ -83,7 +83,7 @@ fields @timestamp, nginx.client as srcip | fields nginx.agent as agent | fields 
   #| filter path like /(?i)(./env|/robots)/
   #| filter (path=~/\\.*/ or path like/.*/)
   #| filter path=~/\\.*.*/ or path like /\.[a-z]*./
-  | filter not isblank(path) | filter path=~/\\.*.*/ or path like /(?i)\.[a-zA-Z]*.*.(php|env|admin|js|aws|shell|bak)/ or path like /.env/ and path != "/" # | stats count(*) by path
+  | filter not isblank(path) | filter path=~/\\.*.*/ or path like /(?i)\.[a-zA-Z]*.*.(php|env|admin|js|aws|shell|bak|api|graphql|staging|dev|v1)/ or path like /.env/ and path != "/" # | stats count(*) by path
   | stats count(*) as numRequests by path, srcip, agent, dstip
   | sort path desc
   | display numRequests, path, srcip, agent, dstip
