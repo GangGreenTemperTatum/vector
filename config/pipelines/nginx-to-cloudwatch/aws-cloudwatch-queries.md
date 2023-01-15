@@ -64,7 +64,7 @@ fields @timestamp, @message, nginx.client as srcip | fields nginx.path as path
   | limit 100
 ```
 
-## NGINX Status != 200 - Unusual HTTP Status Codes
+## NGINX Status != 200
 
 ```
 fields @timestamp, nginx.client as srcip, nginx.agent as agent, nginx.server as dstip, nginx.status as status
@@ -83,7 +83,7 @@ fields @timestamp, nginx.client as srcip | fields nginx.agent as agent | fields 
   #| filter path like /(?i)(./env|/robots)/
   #| filter (path=~/\\.*/ or path like/.*/)
   #| filter path=~/\\.*.*/ or path like /\.[a-z]*./
-  | filter path=~/\\.*.*/ or path like /(?i)\.[a-zA-Z]*.*.(php|env|admin|js|aws|shell|bak)/ or path like /.env/ and path != "/" # | stats count(*) by path
+  | filter not isblank(path) | filter path=~/\\.*.*/ or path like /(?i)\.[a-zA-Z]*.*.(php|env|admin|js|aws|shell|bak)/ or path like /.env/ and path != "/" # | stats count(*) by path
   | stats count(*) as numRequests by path, srcip, agent, dstip
   | sort path desc
   | display numRequests, path, srcip, agent, dstip
@@ -100,7 +100,7 @@ fields @timestamp, nginx.client as srcip | fields nginx.agent as agent | fields 
   #| limit 50
 ```
 
-## Hunt for Potential Large File Transfers and Exfiltration:
+## Look for Potential Large File Transfers and Exfiltration:
 
 ```
 fields @timestamp, nginx.client as srcip | fields nginx.server as dstip | fields nginx.method as method | fields nginx.path as path | fields nginx.size as size
