@@ -64,7 +64,7 @@ fields @timestamp, @message, nginx.client as srcip | fields nginx.path as path
   | limit 100
 ```
 
-## NGINX Status != 200
+## NGINX Status != 200 and Unusual HTTP Status Codes
 
 ```
 fields @timestamp, nginx.client as srcip, nginx.agent as agent, nginx.server as dstip, nginx.status as status
