@@ -8,6 +8,8 @@ Test the configuration by changing to the resulting directory and pipe the `NDJS
 $ tail /etc/vector/out/vector-nginx.json | jq
 ```
 
+![nginx-to-json_log-output-example](https://user-images.githubusercontent.com/104169244/212603122-f4fbe514-ce3a-441d-b05a-e459eb94daea.png)
+
 The resulting configuration from [`nginx-to-json.yml`](https://github.com/GangGreenTemperTatum/vector/blob/main/config/pipelines/nginx-to-json/nginx-to-json.yml) omits the log in the following [format when piping to `JQ`](https://github.com/GangGreenTemperTatum/vector/blob/main/config/pipelines/nginx-to-json/log-output-example.json)
 
 ## Retired parsing techniques ##
