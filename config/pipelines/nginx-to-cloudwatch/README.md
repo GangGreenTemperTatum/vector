@@ -2,7 +2,7 @@ A [Vector](https://vector.dev) pipeline configuration to publish local sample NG
 
 Ensure to run the [`/etc/vector/./run-vector.sh clean`](https://github.com/GangGreenTemperTatum/vector/blob/main/scripts/run-vector.sh) after any prior Vector runs or attempts to flush configuration, ingestigion and logs
 
-## Test your results / Log Output 
+## Test your results / Log Output (see results [here](https://github.com/GangGreenTemperTatum/vector/blob/main/config/pipelines/nginx-to-cloudwatch/aws-cloudwatch-dashboards/README.md))
 
 ![nginx-to-cloudwatch_log-groups-streams-output](https://user-images.githubusercontent.com/104169244/212603907-c3794e4f-f34a-4fb6-abd7-5c4bc1544129.png)
 
