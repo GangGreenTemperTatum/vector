@@ -2,6 +2,29 @@ A [Vector](https://vector.dev) pipeline configuration to publish local sample NG
 
 Ensure to run the [`/etc/vector/./run-vector.sh clean`](https://github.com/GangGreenTemperTatum/vector/blob/main/scripts/run-vector.sh) after any prior Vector runs or attempts to flush configuration, ingestigion and logs
 
+## Test your results / Log Output 
+
+![nginx-to-cloudwatch_log-groups-streams-output](https://user-images.githubusercontent.com/104169244/212603907-c3794e4f-f34a-4fb6-abd7-5c4bc1544129.png)
+
+![nginx-to-cloudwatch_log-output-example](https://user-images.githubusercontent.com/104169244/212603498-d9a84932-2916-48c2-a5dd-78e3caa0d30e.png)
+
+* [This configuration pipeline](https://github.com/GangGreenTemperTatum/vector/blob/main/config/pipelines/nginx-to-cloudwatch/nginx-sample-to-cloudwatch.yml) creates individual log stream per-NGINX server IP address which is configured under the sink's key/value `stream_name: "{{ .nginx.server }}"`. Each unique Event (AKA log) is visible in "pretty" JSON format (non-NDJSON) in the AWS CloudWatch console.
+
+### To view the logs:
+
+* Navigate to your [AWS Console:](https://portal.aws.amazon.com)
+
+1) Ensure you are in the correct region & search for `cloudwatch` under services search
+2) Click `Logs` >
+3) Click `Log Groups` > 
+4) Click on your `<log-group-name>` .. [Example](https://us-east-2.console.aws.amazon.com/cloudwatch/home?region=us-east-2#logsV2:log-groups/log-group/vector-nginx$)
+
+* Ensure to enable all columns, the following columns will be available with your populated Log stream's:
+
+```
+Log stream | ARN | Creation time | First event time | Last event time | Last ingestion time | Stored bytes | Upload sequence token | Log stream | ARN | Creation time | First event time | Last event time | Last ingestion time | Stored bytes | Upload sequence token
+```
+
 ## Resources:
 
 * [Timber.io AWS Cloudwatch Sink](https://vector.dev/docs/reference/configuration/sinks/aws_cloudwatch_logs/)
@@ -25,22 +48,3 @@ Ensure to run the [`/etc/vector/./run-vector.sh clean`](https://github.com/GangG
 ## TDL Enhancements
 * Scale Vector [pipeline](https://vector.dev/guides/advanced/cloudwatch-logs-firehose/) using [`AWS Kinesis Firehose`](https://aws.amazon.com/kinesis/data-firehose/) to host multiple Vector instances over HTTPS for redundancy, scalability and portability
 * Deploy as IaC with [Terraform](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group)
-
-## Test your results / Log Output 
-
-* [This configuration pipeline](https://github.com/GangGreenTemperTatum/vector/blob/main/config/pipelines/nginx-to-cloudwatch/nginx-sample-to-cloudwatch.yml) creates individual log stream per-NGINX server IP address which is configured under the sink's key/value `stream_name: "{{ .nginx.server }}"`. Each unique Event (AKA log) is visible in "pretty" JSON format (non-NDJSON) in the AWS CloudWatch console.
-
-### To view the logs:
-
-* Navigate to your [AWS Console:](https://portal.aws.amazon.com)
-
-1) Ensure you are in the correct region & search for `cloudwatch` under services search
-2) Click `Logs` >
-3) Click `Log Groups` > 
-4) Click on your `<log-group-name>` .. [Example](https://us-east-2.console.aws.amazon.com/cloudwatch/home?region=us-east-2#logsV2:log-groups/log-group/vector-nginx$)
-
-* Ensure to enable all columns, the following columns will be available with your populated Log stream's:
-
-```
-Log stream | ARN | Creation time | First event time | Last event time | Last ingestion time | Stored bytes | Upload sequence token | Log stream | ARN | Creation time | First event time | Last event time | Last ingestion time | Stored bytes | Upload sequence token
-```
