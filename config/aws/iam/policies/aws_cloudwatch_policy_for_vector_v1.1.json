@@ -12,7 +12,7 @@
                 "iam:ListAccessKeys",
                 "iam:UpdateAccessKey"
             ],
-            "Resource": "arn:aws:iam::753124367843:user/cloudwatch"
+            "Resource": "arn:aws:iam::XXXXXX:user/cloudwatch"
         },
         {
             "Sid": "CloudWatchLogUploadsforVector",
